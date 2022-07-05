@@ -16,7 +16,7 @@
         <h1>Form</h1>
         <p>폼을 통해 데이터 전송해봅시다.</p>
     </div>
-    <form action="/getNoticeData" method="post">
+    <form action="/getInsertNotice" method="get">
         <div class="form-group">
             <label>작성자</label>
             <input name="reg_id" type="text" class="form-control"/>
