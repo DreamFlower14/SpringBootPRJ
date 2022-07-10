@@ -2,7 +2,6 @@ package kopo.poly.persistance.mapper;
 
 import kopo.poly.dto.NoticeDTO;
 import org.apache.ibatis.annotations.Mapper;
-
 import java.util.List;
 
 @Mapper
@@ -15,4 +14,6 @@ public interface INoticeMapper {
     NoticeDTO getNoticeDetail(NoticeDTO pDTO) throws Exception;
 
     int noticeDelete(NoticeDTO nDTO) throws Exception;
+
+    int noticeUpdate(NoticeDTO nDTO) throws Exception;
 }
