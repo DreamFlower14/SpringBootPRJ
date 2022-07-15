@@ -2,7 +2,7 @@
 <%@ page import="kopo.poly.util.CmmUtil" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-    NoticeDTO rDTO = (NoticeDTO) request.getAttribute("rDTO");
+    NoticeDTO rDTO = (NoticeDTO)request.getAttribute("rDTO");
 %>
 <!DOCTYPE html>
 <html>

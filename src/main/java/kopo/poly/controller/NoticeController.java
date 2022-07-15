@@ -6,6 +6,7 @@ import kopo.poly.util.CmmUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +31,7 @@ public class NoticeController {
 
         return "index"; // index = jsp 파일의 이름
     }
+
     @GetMapping(value = "noticeInfo") // noticeInfo 는 form 을 호출
     public String noticeInfo() throws Exception {
         log.info(this.getClass().getName() + " .noticeInfo Start!!");
@@ -48,11 +50,9 @@ public class NoticeController {
         log.info("name : " + name);
         log.info("content : " + contents);
 
-
         model.addAttribute("title",title);
         model.addAttribute("name",name);
         model.addAttribute("contents",contents);
-
 
         log.info(this.getClass().getName() + " .getNoticeData End");
         return "getNoticeData";
@@ -155,6 +155,51 @@ public class NoticeController {
         model.addAttribute("msg", msg);
         model.addAttribute("url", url);
 
+        return "redirect";
+    }
+
+    @GetMapping(value = "NoticeUpdate")
+    public String NoticeUpdate(HttpServletRequest request, ModelMap model) throws Exception {
+        log.info(this.getClass().getName() + " .NoticeUpdate Start!!");
+        String Notice_seq = request.getParameter("no");
+        log.info(Notice_seq);
+        model.addAttribute("Notice_seq",Notice_seq);
+        log.info(this.getClass().getName() + " .NoticeUpdate End!!");
+        return "editForm";
+    }
+    @GetMapping(value = "DoNoticeUpdate")
+    public String DoNoticeUpdate(HttpServletRequest request, Model model) throws Exception{
+        log.info(this.getClass().getName() + " .DoNoticeUpdate Start!!");
+        String notice_seq = request.getParameter("Notice_seq");
+        String title = request.getParameter("title");
+        String contents = request.getParameter("contents");
+
+        log.info("번호 : " + notice_seq);
+        log.info("제목 : " + title);
+        log.info("내용 : " + contents);
+
+
+        NoticeDTO nDTO = new NoticeDTO();
+        nDTO.setReg_id(notice_seq);
+        nDTO.setTitle(title);
+        nDTO.setContents(contents);
+
+        int res = noticeService.noticeUpdate(nDTO);
+
+        String msg,url;
+        
+        if (res > 0){
+            msg = "수정 성공!";
+            url = "NoticeDetail?no" + notice_seq;
+        }else {
+            msg = "수정 실패...ㅠ";
+            url = "NoticeDetail?no" + notice_seq;
+        }
+
+        model.addAttribute("msg", msg);
+        model.addAttribute("url", url);
+
+        log.info(this.getClass().getName() + " .DONoticeUpdate End!!");
         return "redirect";
     }
 }

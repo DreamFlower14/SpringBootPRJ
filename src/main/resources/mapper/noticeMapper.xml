@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "=//mybatis.org//DTO Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kopo.poly.persistance.mapper.INoticeMapper"> <!-- Mapper 를 하기 위해서 xml 파일과 인터페이스를 연결해주는 것-->
+    <insert id="InsertNoticeInfo" parameterType="NoticeDTO">   <!-- 인터페이스 이름이 같아야한다 (INoticeMapper) -->
+        Insert into notice
+        (
+            NOTICE_SEQ,TITLE,CONTENTS,REG_ID
+        )
+        values
+        (
+            NOTICE_SEQ.NEXTVAL,#{title},#{contents},#{reg_id}  <!--위의 4개의 컬럼들에 각각 맞는 데이터 타입들(num,varcher,varcher,varcher)을 넣어줘야 한다. -->
+        )   <!--시퀀스 사용하겠다--><!-- # == "" (큰 따음표)와 같은 의미 -->
+        <!--insert 에 성공하면 1을 반환 실패하면 0을 반환 -->
+    </insert>
+
+    <select id="getNoticeList" resultType="NoticeDTO">
+        select *
+        from notice
+        order by NOTICE_SEQ asc
+    </select>
+
+    <select id="getNoticeDetail" parameterType="NoticeDTO" resultType="NoticeDTO">
+        select *
+        from notice
+        where NOTICE_SEQ = #{notice_seq}
+    </select>
+
+    <delete id="noticeDelete" parameterType="NoticeDTO">
+        delete from notice
+        where notice_seq = #{notice_seq}
+    </delete>
+
+    <update id="noticeUpdate" parameterType="NoticeDTO">
+        update notice
+        set title = #{title} , contents = #{contents}
+        where NOTICE_SEQ = #{notice_seq}
+    </update>
+</mapper>
