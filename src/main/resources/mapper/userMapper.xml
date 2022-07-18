@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "=//mybatis.org//DTO Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kopo.poly.persistance.mapper.IUserMapper"> <!-- Mapper 를 하기 위해서 xml 파일과 인터페이스를 연결해주는 것-->
+    <insert id="InsertUserInfo" parameterType="UserDTO">   <!-- 인터페이스 이름이 같아야한다 (INoticeMapper) -->
+        Insert into userinfo
+        (
+        USER_SEQ,USER_NAME,USER_ID,USER_PWD,USER_EMAIL
+        )
+        values
+        (
+        USER_SEQ.NEXTVAL,#{user_name},#{user_id},#{user_pwd},#{user_email}
+        )
+    </insert>
+
+    <select id="UserLogin" parameterType="UserDTO" resultType="UserDTO">
+        select *
+        from userinfo
+        where USER_ID = #{user_id} and USER_PWD = #{user_pwd}
+    </select>
+</mapper>
