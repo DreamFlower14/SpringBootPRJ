@@ -83,8 +83,6 @@ public class UserController {
         uDTO.setUser_id(User_Id);
         uDTO.setUser_pwd(User_Pwd);
 
-//        String url, msg;
-
         UserDTO pDTO = UserService.UserLogin(uDTO);
         log.info(String.valueOf(pDTO));
         if (pDTO == null){

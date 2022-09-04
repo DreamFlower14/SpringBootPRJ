@@ -120,10 +120,9 @@ public class NoticeController {
             model.addAttribute("url","getNoticeList");
             return  "redirect";
         }
-
         model.addAttribute("rDTO",rDTO);
-        log.info(this.getClass().getName() + " .NoticeDetail End !!");
 
+        log.info(this.getClass().getName() + " .NoticeDetail End !!");
         return "noticeDetail";
     }
 
